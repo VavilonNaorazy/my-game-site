@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой сайт</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- НАВИГАЦИЯ С КНОПКОЙ ВОЙТИ                  -->
+    <!-- ========================================== -->
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li><a href="index.html">🏠 Главная</a></li>
+            <li><a href="index5.html">🎮 Игры</a></li>
+            <li><a href="leader.html">leader</a></li>
+        </ul>
+        
+        <!-- Кнопка "Войти" (показывается, если не авторизован) -->
+        <button id="login-btn" class="login-btn">🔐 Войти</button>
+        
+        <!-- Профиль пользователя (показывается, если авторизован) -->
+        <div id="user-menu" class="user-menu" style="display: none;">
+            <span id="user-display-name" class="user-name">Пользователь</span>
+            <button id="logout-btn" class="logout-btn-small">Выйти</button>
+        </div>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- МОДАЛЬНОЕ ОКНО АУТЕНТИФИКАЦИИ              -->
+    <!-- ========================================== -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-modal-window">
+            
+            <!-- Кнопка закрытия -->
+            <button class="modal-close" id="modal-close">✕</button>
+            
+            <!-- Заголовок -->
+            <h2 class="auth-title">🔐 Добро пожаловать!</h2>
+            
+            <!-- Вкладки -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Вход</button>
+                <button class="auth-tab" data-tab="register">Регистрация</button>
+            </div>
+            
+            <!-- Форма входа -->
+            <form id="login-form" class="auth-form active">
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" placeholder="example@mail.ru" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Пароль:</label>
+                    <input type="password" id="login-password" placeholder="••••••" required>
+                </div>
+                <button type="submit" class="auth-btn">Войти</button>
+            </form>
+            
+            <!-- Форма регистрации -->
+            <form id="register-form" class="auth-form">
+                <div class="form-group">
+                    <label for="register-name">Имя:</label>
+                    <input type="text" id="register-name" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" placeholder="example@mail.ru" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Пароль (мин. 6 символов):</label>
+                    <input type="password" id="register-password" placeholder="••••••" minlength="6" required>
+                </div>
+                <button type="submit" class="auth-btn">Зарегистрироваться</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ОСНОВНОЙ КОНТЕНТ                           -->
+    <!-- ========================================== -->
+    <h1>Добро пожаловать!</h1>
+    <p><img src="https://sys3.ru/synergyuniversity-ru/mediacenter/symbolism/ru_3.png" alt="Логотип" width="350"></p>
+    <p>Моя аватарка:</p>
+    <p><img src="avatar.jpg" alt="Моя аватарка" width="200"></p>
+    <a href="site2.html">Перейти на вторую страницу</a>
+    <a href="https://synergy.ru" target="_blank">Сайт университета</a>
+
+    <p>Сколько курсов в этом университете:</p>
+    <ol>
+        <li>1 курс</li>
+        <li>2 курс</li>
+        <li>3 курс</li>
+        <li>4 курс</li>
+    </ol>
+
+    <p>Мои любимые игры:</p>
+    <ul>
+        <li>Counter-Strike 2</li>
+        <li>Hunt Shadown 1896</li>
+        <li>Forza Horizon 5</li>
+    </ul>
+
+    <!-- ========================================== -->
+    <!-- КАРТОЧКИ ИГР                               -->
+    <!-- ========================================== -->
+    <h2>Наши игры</h2>
+    <div class="card-container" id="games-container">
+        <p id="loading">Загрузка игр...</p>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- ФОРМА ДОБАВЛЕНИЯ (скрыта для неавторизованных) -->
+    <!-- ========================================== -->
+    <div id="add-game-wrapper" style="display: none;">
+        <section class="add-game-section">
+            <h2>➕ Добавить новую игру</h2>
+            <form id="add-game-form">
+                <div class="form-group">
+                    <label for="title">Название игры:</label>
+                    <input type="text" id="title" placeholder="Например: Cyberpunk 2077" required>
+                </div>
+                <div class="form-group">
+                    <label for="genre">Жанр:</label>
+                    <input type="text" id="genre" placeholder="Например: RPG" required>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Рейтинг (0-10):</label>
+                    <input type="number" id="rating" min="0" max="10" step="0.1" placeholder="9.5" required>
+                </div>
+                <div class="form-group">
+                    <label for="imageUrl">Ссылка на картинку:</label>
+                    <input type="url" id="imageUrl" placeholder="https://example.com/image.jpg">
+                </div>
+                <button type="submit" class="submit-btn">Сохранить игру</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- ПОДКЛЮЧАЕМ JAVASCRIPT                        -->
+    <!-- ============================================ -->
+    <script src="script.js"></script>
+
+    <!-- ============================================ -->
+    <!-- ПОДКЛЮЧАЕМ FIREBASE                          -->
+    <!-- ============================================ -->
+     <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
+
+        const firebaseConfig = {
+
+        apiKey: "AIzaSyDG7VTWuQKadKqrQ-ovp5YMGZ2SNtv5nBM",
+        authDomain: "site1-33aa1.firebaseapp.com",
+        projectId: "site1-33aa1",
+        storageBucket: "site1-33aa1.firebasestorage.app",
+        messagingSenderId: "900421622438",
+        appId: "1:900421622438:web:9f3b132ef34efe1a92f267",
+        measurementId: "G-VRV26CM7YL"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        console.log('✅ Firebase подключен!');
+        console.log('📊 Project ID:', firebaseConfig.projectId);
+        console.log('🔥 Firestore готов!');
+        console.log('🔐 Auth готов!');
+
+
+            // Делаем db доступной глобально (для отладки)
+            window.firebaseConfig = firebaseConfig;
+            window.db = db;
+            window.auth = auth;
+            window.firebaseReady = true;
+    </script>
+
+</body>
+</html>
