@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-wodth, initial-scale=1.0">
+        <title> main </title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <style>
+        body{
+            background-color: #000000;
+        }
+        h1{
+            color: #ffbb00;
+            font-family: monospace;
+            text-align: center;
+        }
+                h2{
+            color: #ffbb00;
+            font-family: monospace;
+            text-align: center;
+        }
+        p{
+            color: #ffbb00;
+            font-family: monospace;
+            text-align: center;
+        }
+        ol{
+            text-align:center;
+            
+        }
+         a:link {
+                COLOR: #FFFFFF;
+            }
+            a:visited {
+                color: #ffffff 
+            }
+        header{
+            background-color: #1c1e30;
+        }
+        .menu-list {
+            background-color: #1c1e30 ;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .menu-list a{
+            text-align: center;
+        }
+        .menu-list a:hover {
+            color: #2f55ff;
+
+        }
+        
+
+    </style>
+    <body>
+                     <header>
+        <nav>
+            <br>
+        <center>
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li ><a href="index.html">main page</a></li>
+            <li><a href="site2.html">Page about Hiveswap</a></li>
+            <li><a href="site1.html">Balatro</a></li>
+            <li><a href="rats.html">Credits</a></li>
+            <li><a href="index5.html">videojames</a></li>
+            <li><a href="leader.html">leaderboard</a></li>
+            <li><a href = "admin.html">Административная панель</a></li>
+            <li><a href="index5.html">login</a></li>
+        </ul>
+        
+        <!-- Кнопка "Войти" (показывается, если не авторизован) -->
+        <button id="login-btn" class="login-btn">Войти</button>
+        
+        <!-- Профиль пользователя (показывается, если авторизован) -->
+        <div id="user-menu" class="user-menu" style="display: none;">
+            <span id="user-display-name" class="user-name">Пользователь</span>
+            <button id="logout-btn" class="logout-btn-small">Выйти</button>
+        </div>
+    </nav>
+            </center>
+        <br>
+                    </header>
+            <main>
+        
+                <section class="leaderboard-section">
+        <h2>🏆 Таблица рекордов</h2>
+        
+        <!-- Форма добавления рекорда -->
+        <form id="score-form" class="score-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="player-name">Имя игрока:</label>
+                    <input type="text" id="player-name" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label for="player-score">Очки:</label>
+                    <input type="number" id="player-score" placeholder="1000" min="0" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="game-title">Игра:</label>
+                    <select id="game-title" required>
+                        <option value="">Выберите игру</option>
+                        <option value="Cyberpunk 2077">Cyberpunk 2077</option>
+                        <option value="pokemon">pokemon</option>
+                        <option value="PUBG: BATTLEGROUNDS">PUBG: BATTLEGROUNDS</option>
+                    </select>
+                </div>
+                <button type="submit" class="score-btn">➕ Добавить</button>
+            </div>
+        </form>
+        
+        <!-- Фильтр по игре -->
+        <div class="leaderboard-filter">
+            <label for="leaderboard-game-filter">Фильтр по игре:</label>
+            <select id="leaderboard-game-filter">
+                <option value="">Все игры</option>
+                <option value="Cyberpunk 2077">Cyberpunk 2077</option>
+                <option value="pokemon">pokemon</option>
+                <option value="PUBG: BATTLEGROUNDS">PUBG: BATTLEGROUNDS</option>
+            </select>
+        </div>
+        
+        <!-- Таблица рекордов -->
+        <div class="leaderboard-table-wrapper">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Место</th>
+                        <th>Игрок</th>
+                        <th>Очки</th>
+                        <th>Игра</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <tr>
+                        <td colspan="4" style="text-align: center;">Загрузка...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+    <!-- ============================================ -->
+    <!-- ПОДКЛЮЧАЕМ FIREBASE                          -->
+    <!-- ============================================ -->
+     <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyBnTfUPvkXDWwNdFIFMXOJUGpsYix0gxPs",
+        authDomain: "project1-7e2b5.firebaseapp.com",
+        projectId: "project1-7e2b5",
+        storageBucket: "project1-7e2b5.firebasestorage.app",
+        messagingSenderId: "1090300038523",
+        appId: "1:1090300038523:web:b1c2864392cbd26070c1de"
+        };
+
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        console.log('✅ Firebase подключен!');
+        console.log('📊 Project ID:', firebaseConfig.projectId);
+        console.log('🔥 Firestore готов!');
+        console.log('🔐 Auth готов!');
+
+
+            // Делаем db доступной глобально (для отладки)
+            window.firebaseConfig = firebaseConfig;
+            window.db = db;
+            window.auth = auth;
+            window.firebaseReady = true;
+    </script>
+
+        </main>
+    </body>
+</html>
